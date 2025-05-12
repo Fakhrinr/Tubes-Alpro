@@ -43,3 +43,11 @@ func Menu() {
 		}
 	}
 }
+
+func Saham() {
+	fmt.Println("Saham adalah surat berharga yang menunjukkan kepemilikan atas suatu perusahaan.")
+	fmt.Println("Saham dapat memberikan keuntungan dari dividen dan capital gain.")
+	fmt.Println("Silakan pilih jenis saham yang ingin Anda beli:")
+	fmt.Println("1. Saham Biasa")
+	fmt.Println("2. Saham Preferen")
+}
