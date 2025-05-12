@@ -33,15 +33,21 @@ func Menu() {
 
 		switch pilihan {
 		case 1:
-			//SAHAM()
+			TambahInvestasi()
 		case 2:
-			//OBLIGASI()
+			UbahInvestasi()
 		case 3:
-			//REKSADANA()
+			HapusInvestasi()
+		case 4:
+			CariInvestasi()
+		case 5:
+			UrutkanInvestasi()
+		case 6:
+			LaporanPortofolio()
 		default:
-			fmt.Println("Terima kasih telah menggunakan aplikasi ini")
+			fmt.Println("Terima kasih telah menggunakan aplikasi investasi")
 		}
-		if pilihan == 4 {
+		if pilihan == 7 {
 			break
 		}
 	}
