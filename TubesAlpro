@@ -18,13 +18,16 @@ func Menu() {
 	var pilihan int
 	for {
 		fmt.Println("---------------------")
-		fmt.Println("	MENU")
-		fmt.Println("---------------------")
-		fmt.Println("1. SAHAM")
-		fmt.Println("2. OBLIGASI")
-		fmt.Println("3. REKSADANA")
-		fmt.Println("4. KELUAR")
-		fmt.Println("---------------------")
+        fmt.Println("	MENU")
+        fmt.Println("---------------------")
+        fmt.Println("1. Tambah Investasi")
+        fmt.Println("2. Ubah Investasi")
+        fmt.Println("3. Hapus Investasi")
+        fmt.Println("4. Cari Investasi")
+        fmt.Println("5. Urutkan Investasi")
+        fmt.Println("6. Laporan Portofolio")
+        fmt.Println("7. Keluar")
+        fmt.Println("---------------------")
 
 		fmt.Scan(&pilihan)
 
