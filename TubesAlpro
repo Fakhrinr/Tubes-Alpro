@@ -53,18 +53,77 @@ func Menu() {
 	}
 }
 
-func Saham() {
-	fmt.Println("Saham adalah surat berharga yang menunjukkan kepemilikan atas suatu perusahaan.")
-	fmt.Println("Saham dapat memberikan keuntungan dari dividen dan capital gain.")
-	fmt.Println("Silakan pilih jenis saham yang ingin Anda beli:")
-	fmt.Println("1. Saham Biasa")
-	fmt.Println("2. Saham Preferen")
+func TambahInvestasi() {
+	fmt.Println("Pilih tipe investasi yang ingin ditambahkan:")
+	for{
+		fmt.Println("---------------------")
+        fmt.Println("	TAMBAH INVESTASI")
+        fmt.Println("---------------------")
+		fmt.Println("1. Saham")
+		fmt.Println("2. Obligasi")
+		fmt.Println("3. Reksadana")
+		fmt.Println("4. Keluar")
+		fmt.Println("---------------------")
+
+		var pilihan int
+		fmt.Println("Masukkan pilihan anda: ")
+		fmt.Scan(&pilihan)
+		switch pilihan {
+		case 1:
+			 tambahInvesSaham()
+		case 2:
+			 tambahInvesObligasi()
+		case 3:
+			 tambahInvesReksadana()
+		case 4:
+			fmt.Println("Kembali ke menu utama")
+		}
+		if pilihan == 4 {
+			menu()
+		}
+		fmt.Println("Apakah anda ingin menambah investasi lagi? (y/n)")
+		var lagi string
+		fmt.Scan(&lagi)
+		if lagi == "n" {
+			break
+		}
+	}
 }
 
-func Obligasi() {
-	fmt.Println("Obligasi adalah surat utang yang diterbitkan oleh perusahaan atau pemerintah.")
-	fmt.Println("Obligasi dapat memberikan keuntungan dari bunga dan capital gain.")
-	fmt.Println("Silakan pilih jenis obligasi yang ingin Anda beli:")
-	fmt.Println("1. Obligasi Korporasi")
-	fmt.Println("2. Obligasi Pemerintah")
+func UbahInvestasi() {
+	fmt.Println("Pilih tipe investasi yang ingin diubah:")
+	for{
+		fmt.Println("---------------------")
+		fmt.Println("	UBAH INVESTASI")
+		fmt.Println("---------------------")
+		fmt.Println("1. Saham")
+		fmt.Println("2. Obligasi")
+		fmt.Println("3. Reksadana")
+		fmt.Println("4. Keluar")
+		fmt.Println("---------------------")
+
+		var pilihan int
+		fmt.Println("Masukkan pilihan anda: ")
+		fmt.Scan(&pilihan)
+		switch pilihan {
+		case 1:
+			 ubahInvesSaham()
+		case 2:
+			 ubahInvesObligasi()
+		case 3:
+			 ubahInvesReksadana()
+		case 4:
+			fmt.Println("Kembali ke menu utama")
+		}
+		if pilihan == 4 {
+			menu()
+		}
+		fmt.Println("Apakah anda ingin mengubah investasi lagi? (y/n)")
+		var lagi string
+		fmt.Scan(&lagi)
+		if lagi == "n" {
+			break
+		}
+	}
 }
+
