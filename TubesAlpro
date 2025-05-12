@@ -51,3 +51,11 @@ func Saham() {
 	fmt.Println("1. Saham Biasa")
 	fmt.Println("2. Saham Preferen")
 }
+
+func Obligasi() {
+	fmt.Println("Obligasi adalah surat utang yang diterbitkan oleh perusahaan atau pemerintah.")
+	fmt.Println("Obligasi dapat memberikan keuntungan dari bunga dan capital gain.")
+	fmt.Println("Silakan pilih jenis obligasi yang ingin Anda beli:")
+	fmt.Println("1. Obligasi Korporasi")
+	fmt.Println("2. Obligasi Pemerintah")
+}
