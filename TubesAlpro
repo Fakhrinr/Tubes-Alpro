@@ -1,3 +1,45 @@
 package main
 
 import"fmt"
+
+package main
+
+import "fmt"
+
+func main() {
+	fmt.Println("Selamat datang di aplikasi investasi")
+	fmt.Println("Silakan pilih menu yang tersedia")
+
+	Menu()
+
+}
+
+func Menu() {
+	var pilihan int
+	for {
+		fmt.Println("---------------------")
+		fmt.Println("	MENU")
+		fmt.Println("---------------------")
+		fmt.Println("1. SAHAM")
+		fmt.Println("2. OBLIGASI")
+		fmt.Println("3. REKSADANA")
+		fmt.Println("4. KELUAR")
+		fmt.Println("---------------------")
+
+		fmt.Scan(&pilihan)
+
+		switch pilihan {
+		case 1:
+			//SAHAM()
+		case 2:
+			//OBLIGASI()
+		case 3:
+			//REKSADANA()
+		default:
+			fmt.Println("Terima kasih telah menggunakan aplikasi ini")
+		}
+		if pilihan == 4 {
+			break
+		}
+	}
+}
