@@ -11,7 +11,6 @@ func main() {
 	fmt.Println("Silakan pilih menu yang tersedia")
 
 	Menu()
-
 }
 
 func Menu() {
@@ -126,4 +125,42 @@ func UbahInvestasi() {
 		}
 	}
 }
+
+func HapusInvestasi() {
+	fmt.Println("Pilih tipe investasi yang ingin dihapus:")
+	for{
+		fmt.Println("---------------------")
+		fmt.Println("	HAPUS INVESTASI")
+		fmt.Println("---------------------")
+		fmt.Println("1. Saham")
+		fmt.Println("2. Obligasi")
+		fmt.Println("3. Reksadana")
+		fmt.Println("4. Keluar")
+		fmt.Println("---------------------")
+
+		var pilihan int
+		fmt.Println("Masukkan pilihan anda: ")
+		fmt.Scan(&pilihan)
+		switch pilihan {
+		case 1:
+			 hapusInvesSaham()
+		case 2:
+			 hapusInvesObligasi()
+		case 3:
+			 hapusInvesReksadana()
+		case 4:
+			fmt.Println("Kembali ke menu utama")
+		}
+		if pilihan == 4 {
+			menu()
+		}
+		fmt.Println("Apakah anda ingin menghapus investasi lagi? (y/n)")
+		var lagi string
+		fmt.Scan(&lagi)
+		if lagi == "n" {
+			break
+		}
+	}
+}
+
 
