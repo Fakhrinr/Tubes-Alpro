@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type investasi struct {
 	id    int     //Id Number investment
@@ -330,53 +332,59 @@ func ubahInvesReksadana(A *TabInvesReksadana, x int) {
 		fmt.Println("Data investasi tidak ditemukan")
 	}
 }
-
 func hapusInvesReksadana(A *TabInvesReksadana, x *int) {
 	fmt.Println("Masukkan ID investasi yang ingin dihapus: ")
-	var id, i int
+	var id, i, j int
 	var found bool
-
-	i = 0
 	fmt.Scan(&id)
 	found = false
 
-	for i < NMAX && found == false {
+	for i = 0; i < *x && found == false; i++ {
 		if A[i].id == id {
-			A[i] = A[i+1]
+			for j = i; j < *x-1; j++ {
+				A[j] = A[j+1]
+			}
 			fmt.Println("Data investasi reksadana berhasil dihapus")
 			found = true
+			*x--
 		}
-		i++
-	}
-	if found == false {
-		fmt.Println("Data investasi tidak ditemukan")
+		if found == false {
+			fmt.Println("Data investasi tidak ditemukan")
+		}
 	}
 }
 
-func cariInvesReksadana(A *TabInvesReksadana) {
-	fmt.Println("Masukkan ID investasi yang ingin dicari: ")
+func cariInvesReksadana(A *TabInvesReksadana, x int) {
+	seqInvesReksadana(A, x)
+	binaryInvesReksadana(A, x)
+}
+
+func seqInvesReksadana(A *TabInvesReksadana, x int) {
 	var id, i int
-	var found bool
+	var ketemu bool
 
-	i = 0
+	ketemu = false
+	fmt.Println("Masukkan ID investasi yang ingin dicari: ")
 	fmt.Scan(&id)
-	found = false
-
-	for i < NMAX && found == false {
+	for i = 0; i < x && ketemu == false; i++ {
 		if A[i].id == id {
 			fmt.Println("Data investasi reksadana berhasil ditemukan")
-			fmt.Println("ID: ", A[i].id)
-			fmt.Println("Nama: ", A[i].nama)
-			fmt.Println("Tipe: ", A[i].tipe)
-			fmt.Println("Harga: ", A[i].harga)
-			fmt.Println("Total: ", A[i].total)
-			found = true
+			fmt.Printf("--------------------------------------------------------------------------\n")
+			fmt.Printf("| ID | Nama                 | Tipe       | Harga         | Total         |\n")
+			fmt.Printf("--------------------------------------------------------------------------\n")
+
+			fmt.Printf("| %2d | %-20s | %-10s | %-12.2f | %-12.2f |\n", A[i].id, A[i].nama, A[i].tipe, A[i].harga, A[i].total)
+			fmt.Printf("--------------------------------------------------------------------------\n")
+			ketemu = true
 		}
-		i++
+
 	}
-	if found == false {
+	if ketemu == false {
 		fmt.Println("Data investasi tidak ditemukan")
 	}
+}
+func binaryInvesReksadana(A *TabInvesReksadana, x int) {
+
 }
 
 func urutInvesReksadana(A *TabInvesReksadana) {
