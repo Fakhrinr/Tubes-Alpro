@@ -408,3 +408,27 @@ func urutInvesReksadana(A *TabInvesReksadana) {
 
 func urutID(A *TabInvesReksadana) {
 	fmt.Println("Data ")
+}
+
+func tambahInvesSaham(A *TabInvesSaham) {
+	var i int
+	var cek string
+	cek = "yes"
+	for cek != "yes" || cek != "Yes" || cek != "yes" {
+		fmt.Println("Masukkan ID investasi: ")
+		fmt.Scan(&A[i].id)
+		fmt.Println("Masukkan nama investasi: ")
+		fmt.Scan(&A[i].nama)
+		fmt.Println("Masukkan tipe investasi: ")
+		fmt.Scan(&A[i].tipe)
+		fmt.Println("Masukkan harga investasi awal: ")
+		fmt.Scan(&A[i].harga)
+		fmt.Println("Masukkan total investasi yang diperoleh: ")
+		fmt.Scan(&A[i].total)
+
+		fmt.Println("Apakah anda ingin menambah investasi lagi? (yes/no)")
+		fmt.Scan(&cek)
+		i++
+	}
+	fmt.Println("Data investasi saham berhasil ditambahkan")
+}
