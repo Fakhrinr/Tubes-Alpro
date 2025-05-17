@@ -419,32 +419,25 @@ func urutID(A *TabInvesReksadana) {
 }
 
 func tambahInvesSaham(A *TabInvesSaham, i *int) {
-
 	var cek string
 	cek = "yes"
+	for *i < NMAX && (cek == "yes" || cek == "Yes" || cek == "YES") {
+		fmt.Println("Masukkan ID investasi: ")
+		fmt.Scan(&A[*i].id)
+		fmt.Println("Masukkan nama investasi: ")
+		fmt.Scan(&A[*i].nama)
+		fmt.Println("Masukkan tipe investasi: ")
+		fmt.Scan(&A[*i].tipe)
+		fmt.Println("Masukkan harga investasi awal: ")
+		fmt.Scan(&A[*i].harga)
+		fmt.Println("Masukkan total investasi yang diperoleh: ")
+		fmt.Scan(&A[*i].total)
 
-	if cek == "yes" || cek == "Yes" || cek == "YES" {
-		fmt.Println("Input tidak valid, silakan coba lagi")
+		fmt.Println("Apakah anda ingin menambah investasi lagi? (yes/no)")
 		fmt.Scan(&cek)
-	} else {
-		for cek == "yes" || cek == "Yes" || cek == "YES" {
-			fmt.Println("Masukkan ID investasi: ")
-			fmt.Scan(&A[*i].id)
-			fmt.Println("Masukkan nama investasi: ")
-			fmt.Scan(&A[*i].nama)
-			fmt.Println("Masukkan tipe investasi: ")
-			fmt.Scan(&A[*i].tipe)
-			fmt.Println("Masukkan harga investasi awal: ")
-			fmt.Scan(&A[*i].harga)
-			fmt.Println("Masukkan total investasi yang diperoleh: ")
-			fmt.Scan(&A[*i].total)
-
-			fmt.Println("Apakah anda ingin menambah investasi lagi? (yes/no)")
-			fmt.Scan(&cek)
-			*i++
-		}
-		fmt.Println("Data investasi saham berhasil ditambahkan")
+		*i++
 	}
+	fmt.Println("Data investasi reksadana berhasil ditambahkan")
 }
 
 func ubahInvesSaham(A *TabInvesSaham, x int) {
@@ -477,22 +470,22 @@ func ubahInvesSaham(A *TabInvesSaham, x int) {
 
 func hapusInvesSaham(A *TabInvesSaham, x *int) {
 	fmt.Println("Masukkan ID investasi yang ingin dihapus: ")
-	var id, i int
+	var id, i, j int
 	var found bool
-
-	i = 0
 	fmt.Scan(&id)
 	found = false
 
-	for i < NMAX && found == false {
+	for i = 0; i < *x && found == false; i++ {
 		if A[i].id == id {
-			A[i] = A[i+1]
+			for j = i; j < *x-1; j++ {
+				A[j] = A[j+1]
+			}
 			fmt.Println("Data investasi reksadana berhasil dihapus")
 			found = true
+			*x--
 		}
-		i++
-	}
-	if found == false {
-		fmt.Println("Data investasi tidak ditemukan")
+		if found == false {
+			fmt.Println("Data investasi tidak ditemukan")
+		}
 	}
 }
