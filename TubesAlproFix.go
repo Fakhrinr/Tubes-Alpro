@@ -466,3 +466,25 @@ func ubahInvesSaham(A *TabInvesSaham, x int) {
 		fmt.Println("Data investasi tidak ditemukan")
 	}
 }
+
+func hapusInvesSaham(A *TabInvesSaham, x *int) {
+	fmt.Println("Masukkan ID investasi yang ingin dihapus: ")
+	var id, i int
+	var found bool
+
+	i = 0
+	fmt.Scan(&id)
+	found = false
+
+	for i < NMAX && found == false {
+		if A[i].id == id {
+			A[i] = A[i+1]
+			fmt.Println("Data investasi reksadana berhasil dihapus")
+			found = true
+		}
+		i++
+	}
+	if found == false {
+		fmt.Println("Data investasi tidak ditemukan")
+	}
+}
