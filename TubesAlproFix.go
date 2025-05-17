@@ -16,6 +16,13 @@ type TabInvesSaham [NMAX]investasi
 type TabInvesObligasi [NMAX]investasi
 type TabInvesReksadana [NMAX]investasi
 
+var dataReksadana TabInvesReksadana
+var dataSaham TabInvesSaham
+var dataObligasi TabInvesObligasi
+var iReksadana int = 0
+var iSaham int = 0
+var iObligasi int = 0
+
 func main() {
 	fmt.Println("Selamat datang di aplikasi investasi")
 	fmt.Println("Silakan pilih menu yang tersedia")
@@ -63,9 +70,6 @@ func Menu() {
 }
 
 func TambahInvestasi() {
-	var dataSaham TabInvesSaham
-	var dataObligasi TabInvesObligasi
-	var dataReksadana TabInvesReksadana
 
 	fmt.Println("Pilih tipe investasi yang ingin ditambahkan:")
 	for {
@@ -87,12 +91,12 @@ func TambahInvestasi() {
 		case 2:
 			tambahInvesObligasi(&dataObligasi)
 		case 3:
-			tambahInvesReksadana(&dataReksadana)
+			tambahInvesReksadana(&dataReksadana, &iReksadana)
 		case 4:
 			fmt.Println("Kembali ke menu utama")
 		}
 		if pilihan == 4 {
-			Menu()
+			break
 		}
 		fmt.Println("Apakah anda ingin menambah investasi lagi? (y/n)")
 		var lagi string
@@ -124,7 +128,7 @@ func UbahInvestasi() {
 		case 2:
 			ubahInvesObligasi()
 		case 3:
-			ubahInvesReksadana()
+			ubahInvesReksadana(&dataReksadana, iReksadana)
 		case 4:
 			fmt.Println("Kembali ke menu utama")
 		}
@@ -277,17 +281,39 @@ func LaporanPortofolio() {
 	}
 }
 
-func tambahInvesReksadana(A *TabInvesReksadana) {
-	var i int
+func tambahInvesReksadana(A *TabInvesReksadana, i *int) {
 	var cek string
 	cek = "yes"
-	if cek != "yes" || cek != "Yes" || cek != "YES" {
-		fmt.Println("Input tidak valid, silakan coba lagi")
+	for *i < NMAX && (cek == "yes" || cek == "Yes" || cek == "YES") {
+		fmt.Println("Masukkan ID investasi: ")
+		fmt.Scan(&A[*i].id)
+		fmt.Println("Masukkan nama investasi: ")
+		fmt.Scan(&A[*i].nama)
+		fmt.Println("Masukkan tipe investasi: ")
+		fmt.Scan(&A[*i].tipe)
+		fmt.Println("Masukkan harga investasi awal: ")
+		fmt.Scan(&A[*i].harga)
+		fmt.Println("Masukkan total investasi yang diperoleh: ")
+		fmt.Scan(&A[*i].total)
+
+		fmt.Println("Apakah anda ingin menambah investasi lagi? (yes/no)")
 		fmt.Scan(&cek)
-	} else {
-		for cek != "yes" || cek != "Yes" || cek != "YES" {
-			fmt.Println("Masukkan ID investasi: ")
-			fmt.Scan(&A[i].id)
+		*i++
+	}
+	fmt.Println("Data investasi reksadana berhasil ditambahkan")
+}
+
+func ubahInvesReksadana(A *TabInvesReksadana, x int) {
+	fmt.Println("Masukkan ID investasi yang ingin diubah: ")
+	var id, i int
+	var found bool
+
+	fmt.Scan(&id)
+	found = false
+
+	for i = 0; i < x && found == false; i++ {
+		if A[i].id == id {
+			fmt.Println("Data investasi reksadana berhasil ditemukan, silakan ubah data berikut:")
 			fmt.Println("Masukkan nama investasi: ")
 			fmt.Scan(&A[i].nama)
 			fmt.Println("Masukkan tipe investasi: ")
@@ -297,38 +323,15 @@ func tambahInvesReksadana(A *TabInvesReksadana) {
 			fmt.Println("Masukkan total investasi yang diperoleh: ")
 			fmt.Scan(&A[i].total)
 
-			fmt.Println("Apakah anda ingin menambah investasi lagi? (yes/no)")
-			fmt.Scan(&cek)
-			i++
+			found = true
 		}
-		fmt.Println("Data investasi reksadana berhasil ditambahkan")
+	}
+	if found != false {
+		fmt.Println("Data investasi tidak ditemukan")
 	}
 }
 
-func tambahInvesObligasi(A *TabInvesObligasi) {
-	var i int
-	var cek string
-	cek = "yes"
-	for cek != "yes" || cek != "Yes" || cek != "YES" {
-		fmt.Println("Masukkan ID investasi: ")
-		fmt.Scan(&A[i].id)
-		fmt.Println("Masukkan nama investasi: ")
-		fmt.Scan(&A[i].nama)
-		fmt.Println("Masukkan tipe investasi: ")
-		fmt.Scan(&A[i].tipe)
-		fmt.Println("Masukkan harga investasi awal: ")
-		fmt.Scan(&A[i].harga)
-		fmt.Println("Masukkan total investasi yang diperoleh: ")
-		fmt.Scan(&A[i].total)
-
-		fmt.Println("Apakah anda ingin menambah investasi lagi? (yes/no)")
-		fmt.Scan(&cek)
-		i++
-	}
-	fmt.Println("Data investasi obligasi berhasil ditambahkan")
-}
-
-func hapusInvesReksadana(A *TabInvesReksadana) {
+func hapusInvesReksadana(A *TabInvesReksadana, x *int) {
 	fmt.Println("Masukkan ID investasi yang ingin dihapus: ")
 	var id, i int
 	var found bool
