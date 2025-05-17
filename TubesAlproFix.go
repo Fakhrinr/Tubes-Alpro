@@ -299,3 +299,34 @@ func tambahInvesReksadana(A *TabInvesReksadana) {
 	}
 	fmt.Println("Data investasi reksadana berhasil ditambahkan")
 }
+
+func ubahInvesReksadana(A *TabInvesReksadana) {
+	fmt.Println("Masukkan ID investasi yang ingin diubah: ")
+	var id, i int
+	var found bool
+
+	i = 0
+	fmt.Scan(&id)
+	found = false
+
+	for i < NMAX && found == false {
+		if A[i].id == id {
+			fmt.Println("Data investasi reksadana berhasil ditemukan, silakan ubah data berikut:")
+			fmt.Println("Masukkan nama investasi: ")
+			fmt.Scan(&A[i].nama)
+			fmt.Println("Masukkan tipe investasi: ")
+			fmt.Scan(&A[i].tipe)
+			fmt.Println("Masukkan harga investasi awal: ")
+			fmt.Scan(&A[i].harga)
+			fmt.Println("Masukkan total investasi yang diperoleh: ")
+			fmt.Scan(&A[i].total)
+
+			fmt.Println("Data investasi berhasil diubah")
+			found = true
+		}
+		i++
+	}
+	if found == false {
+		fmt.Println("Data investasi tidak ditemukan")
+	}
+}
