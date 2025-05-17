@@ -438,3 +438,31 @@ func tambahInvesSaham(A *TabInvesSaham, i *int) {
 		fmt.Println("Data investasi saham berhasil ditambahkan")
 	}
 }
+
+func ubahInvesSaham(A *TabInvesSaham, x int) {
+	fmt.Println("Masukkan ID investasi yang ingin diubah: ")
+	var id, i int
+	var found bool
+
+	fmt.Scan(&id)
+	found = false
+
+	for i = 0; i < x && found == false; i++ {
+		if A[i].id == id {
+			fmt.Println("Data investasi reksadana berhasil ditemukan, silakan ubah data berikut:")
+			fmt.Println("Masukkan nama investasi: ")
+			fmt.Scan(&A[i].nama)
+			fmt.Println("Masukkan tipe investasi: ")
+			fmt.Scan(&A[i].tipe)
+			fmt.Println("Masukkan harga investasi awal: ")
+			fmt.Scan(&A[i].harga)
+			fmt.Println("Masukkan total investasi yang diperoleh: ")
+			fmt.Scan(&A[i].total)
+
+			found = true
+		}
+	}
+	if found != false {
+		fmt.Println("Data investasi tidak ditemukan")
+	}
+}
