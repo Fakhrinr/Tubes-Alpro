@@ -31,42 +31,146 @@ func main() {
 
 	Menu()
 }
-
 func Menu() {
 	var pilihan int
 	for {
 		fmt.Println("---------------------")
 		fmt.Println("	MENU")
 		fmt.Println("---------------------")
-		fmt.Println("1. Tambah Investasi")
-		fmt.Println("2. Ubah Investasi")
-		fmt.Println("3. Hapus Investasi")
-		fmt.Println("4. Cari Investasi")
-		fmt.Println("5. Urutkan Investasi")
-		fmt.Println("6. Laporan Portofolio")
-		fmt.Println("7. Keluar")
+		fmt.Println("1. Mulai Investasi")
+		fmt.Println("2. Tambah Investasi")
+		fmt.Println("3. Ubah Investasi")
+		fmt.Println("4. Hapus Investasi")
+		fmt.Println("5. Cari Investasi")
+		fmt.Println("6. Urutkan Investasi")
+		fmt.Println("7. Laporan Portofolio")
+		fmt.Println("8. Keluar")
 		fmt.Println("---------------------")
 
 		fmt.Scan(&pilihan)
 
 		switch pilihan {
 		case 1:
-			TambahInvestasi()
+			MulaiInvestasi()
 		case 2:
-			UbahInvestasi()
+			TambahInvestasi()
 		case 3:
-			HapusInvestasi()
+			UbahInvestasi()
 		case 4:
-			CariInvestasi()
+			HapusInvestasi()
 		case 5:
-			UrutkanInvestasi()
+			CariInvestasi()
 		case 6:
+			UrutkanInvestasi()
+		case 7:
 			LaporanPortofolio()
 		default:
 			fmt.Println("Terima kasih telah menggunakan aplikasi investasi")
 		}
-		if pilihan == 7 {
+		if pilihan == 8 {
 			break
+		}
+	}
+}
+func MulaiInvestasi() {
+	fmt.Println("Pilih tipe investasi yang ingin dimulai:")
+	for {
+		fmt.Println("---------------------")
+		fmt.Println("	MULAI INVESTASI")
+		fmt.Println("---------------------")
+		fmt.Println("1. Saham")
+		fmt.Println("2. Obligasi")
+		fmt.Println("3. Reksadana")
+		fmt.Println("4. Keluar")
+		fmt.Println("---------------------")
+
+		var pilihan int
+		fmt.Println("Masukkan pilihan anda: ")
+		fmt.Scan(&pilihan)
+		switch pilihan {
+		case 1:
+			BacaInvesSaham(&dataSaham, &iSaham)
+		case 2:
+			BacaInvesObligasi(&dataObligasi, &iObligasi)
+		case 3:
+			BacaInvesReksadana(&dataReksadana, &iReksadana)
+		case 4:
+			fmt.Println("Kembali ke menu utama")
+		}
+		if pilihan == 4 {
+			break
+		}
+	}
+}
+func BacaInvesSaham(A *TabInvesSaham, x *int) {
+	var cek bool
+	var pilihan string
+	cek = true
+	for cek != false {
+		fmt.Println("Silahkan masukkan data investasi saham")
+		fmt.Println("Masukkan ID investasi: ")
+		fmt.Scan(&A[*x].id)
+		fmt.Println("Masukkan nama investasi: ")
+		fmt.Scan(&A[*x].nama)
+		fmt.Println("Masukkan tipe investasi: ")
+		fmt.Scan(&A[*x].tipe)
+		fmt.Println("Masukkan harga investasi awal: ")
+		fmt.Scan(&A[*x].harga)
+		fmt.Println("Masukkan total investasi yang diperoleh: ")
+		fmt.Scan(&A[*x].total)
+		*x++
+		fmt.Println("Apakah anda ingin menambah investasi lagi? (yes/no)")
+		fmt.Scan(&pilihan)
+		if pilihan == "no" {
+			cek = false
+		}
+	}
+}
+func BacaInvesObligasi(A *TabInvesObligasi, x *int) {
+	var cek bool
+	var pilihan string
+	cek = true
+	for cek != false {
+		fmt.Println("Silahkan masukkan data investasi obligasi")
+		fmt.Println("Masukkan ID investasi: ")
+		fmt.Scan(&A[*x].id)
+		fmt.Println("Masukkan nama investasi: ")
+		fmt.Scan(&A[*x].nama)
+		fmt.Println("Masukkan tipe investasi: ")
+		fmt.Scan(&A[*x].tipe)
+		fmt.Println("Masukkan harga investasi awal: ")
+		fmt.Scan(&A[*x].harga)
+		fmt.Println("Masukkan total investasi yang diperoleh: ")
+		fmt.Scan(&A[*x].total)
+		*x++
+		fmt.Println("Apakah anda ingin menambah investasi lagi? (yes/no)")
+		fmt.Scan(&pilihan)
+		if pilihan == "no" {
+			cek = false
+		}
+	}
+}
+func BacaInvesReksadana(A *TabInvesReksadana, x *int) {
+	var cek bool
+	var pilihan string
+	cek = true
+	for cek != false {
+		fmt.Println("Silahkan masukkan data investasi reksadana")
+		fmt.Println("Masukkan ID investasi: ")
+		fmt.Scan(&A[*x].id)
+		fmt.Println("Masukkan nama investasi: ")
+		fmt.Scan(&A[*x].nama)
+		fmt.Println("Masukkan tipe investasi: ")
+		fmt.Scan(&A[*x].tipe)
+		fmt.Println("Masukkan harga investasi awal: ")
+		fmt.Scan(&A[*x].harga)
+		fmt.Println("Masukkan total investasi yang diperoleh: ")
+		fmt.Scan(&A[*x].total)
+		*x++
+		fmt.Println("Apakah anda ingin menambah investasi lagi? (yes/no)")
+		fmt.Scan(&pilihan)
+		if pilihan == "no" {
+			cek = false
 		}
 	}
 }
@@ -89,9 +193,9 @@ func TambahInvestasi() {
 		fmt.Scan(&pilihan)
 		switch pilihan {
 		case 1:
-			tambahInvesSaham(&dataSaham)
+			tambahInvesSaham(&dataSaham, &iSaham)
 		case 2:
-			tambahInvesObligasi(&dataObligasi)
+			tambahInvesObligasi(&dataObligasi, &iObligasi)
 		case 3:
 			tambahInvesReksadana(&dataReksadana, &iReksadana)
 		case 4:
@@ -355,20 +459,34 @@ func hapusInvesReksadana(A *TabInvesReksadana, x *int) {
 }
 
 func cariInvesReksadana(A *TabInvesReksadana, x int) {
-	seqInvesReksadana(A, x)
-	binaryInvesReksadana(A, x)
+	var pilihan int
+
+	fmt.Println("Pilih mana yang mau dicari:")
+	fmt.Println("1. Berdasarkan Nama")
+	fmt.Println("2. Berdasarkan ID")
+
+	fmt.Scan(&pilihan)
+	switch pilihan {
+	case 1:
+		seqInvesReksadana(A, x)
+	case 2:
+		binaryInvesReksadana(A, x)
+	default:
+		fmt.Println("Pilihan tidak valid")
+		fmt.Println("Silahkan pilih metode pencarian yang tesedia")
+	}
 }
 
 func seqInvesReksadana(A *TabInvesReksadana, x int) {
 	var i int
 	var ketemu bool
-	var tipe string
+	var nama string
 
 	ketemu = false
 	fmt.Println("Masukkan ID investasi yang ingin dicari: ")
-	fmt.Scan(&tipe)
+	fmt.Scan(&nama)
 	for i = 0; i < x && ketemu == false; i++ {
-		if A[i].tipe == tipe {
+		if A[i].nama == nama {
 			fmt.Println("Data investasi reksadana berhasil ditemukan")
 			fmt.Printf("--------------------------------------------------------------------------\n")
 			fmt.Printf("| ID | Nama                 | Tipe       | Harga         | Total         |\n")
@@ -388,34 +506,41 @@ func binaryInvesReksadana(A *TabInvesReksadana, x int) {
 
 }
 
-func urutInvesReksadana(A *TabInvesReksadana) {
-	fmt.Println("Pilih tipe pengurutan:")
-	fmt.Println("1. ID")
-	fmt.Println("2. Nama")
-	fmt.Println("3. Tipe")
-	fmt.Println("4. Harga")
-	fmt.Println("5. Total")
-
+func urutInvesReksadana(A *TabInvesReksadana, x int) {
 	var pilihan int
-	fmt.Scan(&pilihan)
 
+	fmt.Println("Pilih mana yang mau diurutkan:")
+	fmt.Println("1. Berdasarkan ID")
+	fmt.Println("2. Persentase Keuntungan")
+
+	fmt.Scan(&pilihan)
 	switch pilihan {
 	case 1:
-		urutID(A)
+		urutID(A, x)
 	case 2:
-		urutNama(A)
-	case 3:
-		urutTipe(A)
-	case 4:
-		urutHarga(A)
-	case 5:
-		urutTotal(A)
+		urutPersen(A, x)
 	default:
 		fmt.Println("Pilihan tidak valid")
+		fmt.Println("Silahkan pilih metode pengurutan yang tesedia")
 	}
 }
 
-func urutID(A *TabInvesReksadana) {
+func urutID(A *TabInvesReksadana, x int) {
+	var i, j, idx, temp int
+	for i = 0; i < x-1; i++ {
+		idx = i
+		for j = i; j < x; j++ {
+			if A[j].id < A[idx].id {
+				idx = j
+			}
+		}
+		temp = A[i].id
+		A[i].id = A[idx].id
+		A[idx].id = temp
+	}
+}
+func urutPersen(A *TabInvesReksadana, x int) {
+
 }
 
 func tambahInvesSaham(A *TabInvesSaham, i *int) {
