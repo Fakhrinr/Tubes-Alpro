@@ -5,11 +5,12 @@ import (
 )
 
 type investasi struct {
-	id    int     //Id Number investment
-	nama  string  //nama investment
-	tipe  string  //tipe investasi
-	harga float64 //harga investasi awal
-	total float64 //total investasi yang diperoleh
+	id         int     //Id Number investment
+	nama       string  //nama investment
+	tipe       string  //tipe investasi
+	harga      float64 //harga investasi awal
+	total      float64 //total investasi yang diperoleh
+	keuntungan float64 //keuntungan investasi
 }
 
 const NMAX int = 100
@@ -543,6 +544,70 @@ func urutPersen(A *TabInvesReksadana, x int) {
 
 }
 
+func laporanReksadana(A *TabInvesReksadana, x int) {
+	fmt.Println("Laporan Reksadana")
+	fmt.Println("Silahkan pilih laporan yang ingin ditampilkan:")
+	fmt.Println("1. Laporan Keuntungan Pribadi")
+	fmt.Println("2. Laporan Keuntungan Keseluruhan")
+	fmt.Println("3. Kembali ke menu utama")
+	var pilihan int
+	fmt.Scan(&pilihan)
+	switch pilihan {
+	case 1:
+		fmt.Println("Laporan Keuntungan Pribadi")
+		fmt.Printf("--------------------------------------------------------------------------\n")
+		fmt.Printf("| ID | Nama                 | Tipe       | Harga         | Total         |\n")
+		fmt.Printf("--------------------------------------------------------------------------\n")
+		hitungKeuntunganReksadanaPribadi(A, x)
+		for i := 0; i < x; i++ {
+			fmt.Printf("| %2d | %-20s | %-10s | %-12.2f | %-12.2f |\n", A[i].id, A[i].nama, A[i].tipe, A[i].harga, A[i].total)
+			fmt.Printf("--------------------------------------------------------------------------\n")
+		}
+	case 2:
+		fmt.Println("Laporan Keuntungan Keseluruhan")
+		fmt.Printf("--------------------------------------------------------------------------\n")
+		fmt.Printf("| ID | Nama                 | Tipe       | Harga         | Total         |\n")
+		fmt.Printf("--------------------------------------------------------------------------\n")
+		hitungKeuntunganReksadanaKeseluruhan(A, x)
+
+		for i := 0; i < x; i++ {
+			fmt.Printf("| %2d | %-20s | %-10s | %-12.2f | %-12.2f |\n", A[i].id, A[i].nama, A[i].tipe, A[i].harga, A[i].total)
+			fmt.Printf("--------------------------------------------------------------------------\n")
+		}
+	case 3:
+		fmt.Println("Kembali ke menu utama")
+	default:
+		fmt.Println("Pilihan tidak valid")
+	}
+}
+func hitungKeuntunganReksadanaPribadi(A *TabInvesReksadana, x int) float64 {
+	var i int
+	var id int
+	var total float64
+	fmt.Println("Masukkan ID investasi yang ingin dihitung: ")
+	fmt.Scan(&id)
+
+	for i = 0; i < x; i++ {
+		if A[i].id == id {
+			total = ((A[i].total - A[i].harga) / A[i].harga) * 100
+			A[i].keuntungan = total
+			return total
+		}
+	}
+	fmt.Println("Data investasi tidak ditemukan")
+	return 0
+}
+
+func hitungKeuntunganReksadanaKeseluruhan(A *TabInvesReksadana, x int) {
+	var i int
+	var total float64
+	for i = 0; i < x; i++ {
+		total = ((A[i].total - A[i].harga) / A[i].harga) * 100
+		A[i].keuntungan = total
+
+	}
+}
+
 func tambahInvesSaham(A *TabInvesSaham, i *int) {
 	var cek string
 	cek = "yes"
@@ -626,47 +691,13 @@ func hitungObligasi() {
 			fmt.Println("Data ditemukan. Menghitung total obligasi...")
 
 			dataObligasi[i].total = dataObligasi[i].harga + (dataObligasi[i].harga * dataObligasi[i].bunga * float64(dataObligasi[i].jangkawaktu))
-			
+
 			fmt.Println("Perhitungan berhasil:")
 			fmt.Printf("-------------------------------------------------------------------\n")
 			fmt.Printf("| ID | Nama                 | Tipe     | Harga       | Total       |\n")
 			fmt.Printf("-------------------------------------------------------------------\n")
 			fmt.Printf("| %2d | %-20s | %-8s | %-10.2f | %-10.2f |\n", dataObligasi[i].id, dataObligasi[i].nama, dataObligasi[i].tipe, dataObligasi[i].harga, dataObligasi[i].total)
 			fmt.Printf("-------------------------------------------------------------------\n")
-			found = true
-			break
-		}
-	}
-
-	if !found {
-		fmt.Println("Data investasi tidak ditemukan.")
-	}
-}
-
-func hitungObligasi() {
-	var id int
-	fmt.Println("Masukkan ID investasi obligasi yang ingin dihitung persentase keuntungan/kerugiannya: ")
-	fmt.Scan(&id)
-
-	found := false
-	for i := 0; i < iObligasi; i++ {
-		if dataObligasi[i].id == id {
-			fmt.Println("Data ditemukan. Menghitung persentase keuntungan atau kerugian...")
-
-			if dataObligasi[i].harga == 0 {
-				fmt.Println("Tidak bisa menghitung persentase karena harga awal adalah 0.")
-				return
-			}
-
-			selisih := dataObligasi[i].total - dataObligasi[i].harga
-			persen := (selisih / dataObligasi[i].harga) * 100
-
-			fmt.Printf("-------------------------------------------------------------------\n")
-			fmt.Printf("| ID | Nama                 | Tipe     | Harga       | Total       | %% Untung/Rugi |\n")
-			fmt.Printf("-------------------------------------------------------------------\n")
-			fmt.Printf("| %2d | %-20s | %-8s | %-10.2f | %-10.2f | %12.2f%% |\n", dataObligasi[i].id, dataObligasi[i].nama, dataObligasi[i].tipe, dataObligasi[i].harga, dataObligasi[i].total, persen)
-			fmt.Printf("-------------------------------------------------------------------\n")
-
 			found = true
 			break
 		}
