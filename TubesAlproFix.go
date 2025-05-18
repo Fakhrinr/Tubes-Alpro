@@ -713,3 +713,53 @@ func tambahInvesObligasi(A *TabInvesObligasi, i *int) {
 	}
 	fmt.Println("Data investasi obligasi berhasil ditambahkan")
 }
+
+func ubahInvesObligasi(A *TabInvesObligasi, x int) {
+	fmt.Println("Masukkan ID obligasi yang ingin diubah: ")
+	var id, i int
+	var found bool
+
+	fmt.Scan(&id)
+	found = false
+
+	for i = 0; i < x && !found; i++ {
+		if A[i].id == id {
+			fmt.Println("Data investasi obligasi berhasil ditemukan, silakan ubah data berikut:")
+			fmt.Println("Masukkan nama obligasi: ")
+			fmt.Scan(&A[i].nama)
+			fmt.Println("Masukkan tipe obligasi: ")
+			fmt.Scan(&A[i].tipe)
+			fmt.Println("Masukkan harga obligasi awal: ")
+			fmt.Scan(&A[i].harga)
+			fmt.Println("Masukkan total obligasi yang diperoleh: ")
+			fmt.Scan(&A[i].total)
+
+			found = true
+		}
+	}
+	if !found {
+		fmt.Println("Data obligasi tidak ditemukan")
+	}
+}
+
+func hapusInvesObligasi(A *TabInvesObligasi, x *int) {
+	fmt.Println("Masukkan ID obligasi yang ingin dihapus: ")
+	var id, i, j int
+	var found bool
+	fmt.Scan(&id)
+	found = false
+
+	for i = 0; i < *x && !found; i++ {
+		if A[i].id == id {
+			for j = i; j < *x-1; j++ {
+				A[j] = A[j+1]
+			}
+			fmt.Println("Data investasi obligasi berhasil dihapus")
+			found = true
+			*x--
+		}
+	}
+	if !found {
+		fmt.Println("Data obligasi tidak ditemukan")
+	}
+}
