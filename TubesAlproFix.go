@@ -614,3 +614,32 @@ func hapusInvesSaham(A *TabInvesSaham, x *int) {
 		}
 	}
 }
+
+func hitungObligasi() {
+	var id int
+	fmt.Println("Masukkan ID investasi obligasi yang ingin dihitung: ")
+	fmt.Scan(&id)
+
+	found := false
+	for i := 0; i < iObligasi; i++ {
+		if dataObligasi[i].id == id {
+			fmt.Println("Data ditemukan. Menghitung total obligasi...")
+
+			dataObligasi[i].total = dataObligasi[i].harga + (dataObligasi[i].harga * dataObligasi[i].bunga * float64(dataObligasi[i].jangkawaktu))
+			
+			fmt.Println("Perhitungan berhasil:")
+			fmt.Printf("-------------------------------------------------------------------\n")
+			fmt.Printf("| ID | Nama                 | Tipe     | Harga       | Total       |\n")
+			fmt.Printf("-------------------------------------------------------------------\n")
+			fmt.Printf("| %2d | %-20s | %-8s | %-10.2f | %-10.2f |\n", dataObligasi[i].id, dataObligasi[i].nama, dataObligasi[i].tipe, dataObligasi[i].harga, dataObligasi[i].total)
+			fmt.Printf("-------------------------------------------------------------------\n")
+			found = true
+			break
+		}
+	}
+
+	if !found {
+		fmt.Println("Data investasi tidak ditemukan.")
+	}
+}
+
