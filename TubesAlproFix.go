@@ -691,3 +691,25 @@ func hitungObligasi() {
 		fmt.Println("Data investasi tidak ditemukan.")
 	}
 }
+
+func tambahInvesObligasi(A *TabInvesObligasi, i *int) {
+	var cek string
+	cek = "yes"
+	for *i < NMAX && (cek == "yes" || cek == "Yes" || cek == "YES") {
+		fmt.Println("Masukkan ID obligasi: ")
+		fmt.Scan(&A[*i].id)
+		fmt.Println("Masukkan nama obligasi: ")
+		fmt.Scan(&A[*i].nama)
+		fmt.Println("Masukkan tipe obligasi: ")
+		fmt.Scan(&A[*i].tipe)
+		fmt.Println("Masukkan harga obligasi awal: ")
+		fmt.Scan(&A[*i].harga)
+		fmt.Println("Masukkan total obligasi yang diperoleh: ")
+		fmt.Scan(&A[*i].total)
+
+		fmt.Println("Apakah anda ingin menambah obligasi lagi? (yes/no)")
+		fmt.Scan(&cek)
+		*i++
+	}
+	fmt.Println("Data investasi obligasi berhasil ditambahkan")
+}
