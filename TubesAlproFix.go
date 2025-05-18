@@ -360,14 +360,15 @@ func cariInvesReksadana(A *TabInvesReksadana, x int) {
 }
 
 func seqInvesReksadana(A *TabInvesReksadana, x int) {
-	var id, i int
+	var i int
 	var ketemu bool
+	var tipe string
 
 	ketemu = false
 	fmt.Println("Masukkan ID investasi yang ingin dicari: ")
-	fmt.Scan(&id)
+	fmt.Scan(&tipe)
 	for i = 0; i < x && ketemu == false; i++ {
-		if A[i].id == id {
+		if A[i].tipe == tipe {
 			fmt.Println("Data investasi reksadana berhasil ditemukan")
 			fmt.Printf("--------------------------------------------------------------------------\n")
 			fmt.Printf("| ID | Nama                 | Tipe       | Harga         | Total         |\n")
@@ -415,7 +416,6 @@ func urutInvesReksadana(A *TabInvesReksadana) {
 }
 
 func urutID(A *TabInvesReksadana) {
-	fmt.Println("Data ")
 }
 
 func tambahInvesSaham(A *TabInvesSaham, i *int) {
