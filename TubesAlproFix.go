@@ -643,3 +643,36 @@ func hitungObligasi() {
 	}
 }
 
+func hitungObligasi() {
+	var id int
+	fmt.Println("Masukkan ID investasi obligasi yang ingin dihitung persentase keuntungan/kerugiannya: ")
+	fmt.Scan(&id)
+
+	found := false
+	for i := 0; i < iObligasi; i++ {
+		if dataObligasi[i].id == id {
+			fmt.Println("Data ditemukan. Menghitung persentase keuntungan atau kerugian...")
+
+			if dataObligasi[i].harga == 0 {
+				fmt.Println("Tidak bisa menghitung persentase karena harga awal adalah 0.")
+				return
+			}
+
+			selisih := dataObligasi[i].total - dataObligasi[i].harga
+			persen := (selisih / dataObligasi[i].harga) * 100
+
+			fmt.Printf("-------------------------------------------------------------------\n")
+			fmt.Printf("| ID | Nama                 | Tipe     | Harga       | Total       | %% Untung/Rugi |\n")
+			fmt.Printf("-------------------------------------------------------------------\n")
+			fmt.Printf("| %2d | %-20s | %-8s | %-10.2f | %-10.2f | %12.2f%% |\n", dataObligasi[i].id, dataObligasi[i].nama, dataObligasi[i].tipe, dataObligasi[i].harga, dataObligasi[i].total, persen)
+			fmt.Printf("-------------------------------------------------------------------\n")
+
+			found = true
+			break
+		}
+	}
+
+	if !found {
+		fmt.Println("Data investasi tidak ditemukan.")
+	}
+}
