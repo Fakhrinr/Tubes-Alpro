@@ -105,7 +105,6 @@ func MulaiInvestasi() {
 }
 
 func TambahInvestasi() {
-
 	fmt.Println("Pilih tipe investasi yang ingin ditambahkan:")
 	for {
 		fmt.Println("---------------------")
@@ -233,11 +232,11 @@ func CariInvestasi() {
 		fmt.Scan(&pilihan)
 		switch pilihan {
 		case 1:
-			cariInvesSaham()
+			cariInvesSaham(&dataSaham, iSaham)
 		case 2:
-			cariInvesObligasi()
+			cariInvesObligasi(&dataObligasi, iObligasi)
 		case 3:
-			cariInvesReksadana()
+			cariInvesReksadana(&dataReksadana, iReksadana)
 		case 4:
 			fmt.Println("Kembali ke menu utama")
 		}
@@ -270,11 +269,11 @@ func UrutkanInvestasi() {
 		fmt.Scan(&pilihan)
 		switch pilihan {
 		case 1:
-			urutInvesSaham()
+			urutInvesSaham(&dataSaham, iSaham)
 		case 2:
-			urutInvesObligasi()
+			urutInvesObligasi(&dataObligasi, iObligasi)
 		case 3:
-			urutInvesReksadana()
+			urutInvesReksadana(&dataReksadana, iReksadana)
 		case 4:
 			fmt.Println("Kembali ke menu utama")
 		}
@@ -383,7 +382,7 @@ func ubahInvesSaham(A *TabInvesSaham, x int) {
 			found = true
 		}
 	}
-	if found != false {
+	if !found {
 		fmt.Println("Data investasi tidak ditemukan")
 	}
 }
@@ -404,7 +403,7 @@ func hapusInvesSaham(A *TabInvesSaham, x *int) {
 			found = true
 			*x--
 		}
-		if found == false {
+		if !found {
 			fmt.Println("Data investasi tidak ditemukan")
 		}
 	}
@@ -1156,7 +1155,7 @@ func hitungObligasi() {
 		if dataObligasi[i].id == id {
 			fmt.Println("Data ditemukan. Menghitung total obligasi...")
 
-			dataObligasi[i].total = dataObligasi[i].harga + (dataObligasi[i].harga * dataObligasi[i].bunga * float64(dataObligasi[i].jangkawaktu))
+			//dataObligasi[i].total = dataObligasi[i].harga + (dataObligasi[i].harga * dataObligasi[i].bunga * float64(dataObligasi[i].jangkawaktu))
 
 			fmt.Println("Perhitungan berhasil:")
 			fmt.Printf("-------------------------------------------------------------------\n")
