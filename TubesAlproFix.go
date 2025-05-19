@@ -432,7 +432,7 @@ func seqInvesSaham(A *TabInvesSaham, x int) {
 	var nama string
 
 	ketemu = false
-	fmt.Println("Masukkan ID investasi yang ingin dicari: ")
+	fmt.Println("Masukkan nama investasi yang ingin dicari: ")
 	fmt.Scan(&nama)
 	for i = 0; i < x && ketemu == false; i++ {
 		if A[i].nama == nama {
