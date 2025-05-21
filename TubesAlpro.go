@@ -32,7 +32,7 @@ func main() {
 		case 3:
 			editInvestasi(&inves, &nData)
 		case 4:
-			//LaporanInvestasi()
+			LaporanInvestasi(&inves, &nData)
 		default:
 			fmt.Println("Terima kasih telah menggunakan aplikasi investasi")
 		}
@@ -281,4 +281,24 @@ func cetakData(A *tabSaham, nData *int) {
 	for i = 0; i < *nData; i++ {
 		fmt.Printf("| %s | %s | %s | %s       | %.2f   | %.2f |\n", A[i].id, A[i].nama, A[i].sektor, A[i].perusahaan, A[i].danaAwal, A[i].danaAkhir)
 	}
+}
+
+func LaporanInvestasi(A *tabSaham, nData *int) {
+	var i int
+	var totalKeuntungan float64 = 0
+	var keuntunganKotor float64 = 0
+
+	fmt.Println("---------------------")
+	fmt.Println(" LAPORAN INVESTASI")
+	fmt.Println("---------------------")
+	fmt.Printf("| ID   | Nama   | Sektor    | Perusahaan   | danaAwal  | danaAkhir | Keuntungan Kotor |\n")
+	for i = 0; i < *nData; i++ {
+		keuntunganKotor = A[i].danaAkhir - A[i].danaAwal
+		totalKeuntungan += keuntunganKotor
+		fmt.Printf("| %s | %s | %s | %s | %.2f | %.2f | %.2f |\n",
+			A[i].id, A[i].nama, A[i].sektor, A[i].perusahaan, A[i].danaAwal, A[i].danaAkhir, keuntunganKotor)
+	}
+	fmt.Println("--------------------------------------------------------------------------")
+	fmt.Printf("Total Keuntungan Kotor: %.2f\n", totalKeuntungan)
+	fmt.Println("--------------------------------------------------------------------------")
 }
