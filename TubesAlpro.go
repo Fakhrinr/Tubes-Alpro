@@ -299,6 +299,6 @@ func LaporanInvestasi(A *tabSaham, nData *int) {
 			A[i].id, A[i].nama, A[i].sektor, A[i].perusahaan, A[i].danaAwal, A[i].danaAkhir, keuntunganKotor)
 	}
 	fmt.Println("--------------------------------------------------------------------------")
-	fmt.Printf("Total Keuntungan Kotor: %.2f\n", totalKeuntungan)
+	fmt.Printf("Total Keuntungan : %.2f\n", totalKeuntungan)
 	fmt.Println("--------------------------------------------------------------------------")
 }
