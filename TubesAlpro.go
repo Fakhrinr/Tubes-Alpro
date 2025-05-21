@@ -32,7 +32,7 @@ func main() {
 		case 3:
 			editInvestasi(&inves, &nData)
 		case 4:
-			LaporanInvestasi()
+			//LaporanInvestasi()
 		default:
 			fmt.Println("Terima kasih telah menggunakan aplikasi investasi")
 		}
@@ -58,27 +58,28 @@ func Menu() {
 func MulaiInvestasi(A *tabSaham, nData *int) {
 	var x int
 	var y string
-
-	fmt.Println("---------------------")
-	fmt.Println("	MULAI INVESTASI")
-	fmt.Println("---------------------")
-	fmt.Println("Silahkan pilih sektor investasi saham")
-	fmt.Println("1. Teknologi")
-	fmt.Println("2. Keuangan")
-	fmt.Println("3. Konsumsi")
-	fmt.Println("Pilih sektor investasi (1/2/3):")
-	fmt.Println("---------------------")
-	fmt.Scan(&x)
-	switch x {
-	case 1:
-		A[*nData].sektor = "Teknologi"
-	case 2:
-		A[*nData].sektor = "Keuangan"
-	case 3:
-		A[*nData].sektor = "Konsumsi"
-
-	}
+	y = "yes"
 	for y != "no" {
+		fmt.Println("---------------------")
+		fmt.Println("	MULAI INVESTASI")
+		fmt.Println("---------------------")
+		fmt.Println("Silahkan pilih sektor investasi saham")
+		fmt.Println("1. Teknologi")
+		fmt.Println("2. Keuangan")
+		fmt.Println("3. Konsumsi")
+		fmt.Println("Pilih sektor investasi (1/2/3):")
+		fmt.Println("---------------------")
+		fmt.Scan(&x)
+		switch x {
+		case 1:
+			A[*nData].sektor = "Teknologi"
+		case 2:
+			A[*nData].sektor = "Keuangan"
+		case 3:
+			A[*nData].sektor = "Konsumsi"
+
+		}
+
 		fmt.Println("Silahkan masukkan id investasi:")
 		fmt.Scan(&A[*nData].id)
 		fmt.Println("Silahkan masukkan nama investasi:")
@@ -90,10 +91,10 @@ func MulaiInvestasi(A *tabSaham, nData *int) {
 		fmt.Println("Silahkan masukkan dana akhir investasi:")
 		fmt.Scan(&A[*nData].danaAkhir)
 
+		*nData++
+
 		fmt.Println("Apakah anda ingin menambah data investasi lagi? (yes/no):")
 		fmt.Scan(&y)
-
-		*nData++
 	}
 	fmt.Println("-----------------")
 	fmt.Println("Data investasi berhasil disimpan")
@@ -169,12 +170,14 @@ func editInvestasi(A *tabSaham, nData *int) {
 
 func hapusInvestasi(A *tabSaham, nData *int, y string) {
 	var i, j int
+	var found bool
 	fmt.Println("---------------------")
 	fmt.Println("	HAPUS DATA INVESTASI")
 	fmt.Println("---------------------")
 	fmt.Printf("| ID | Nama                 | Sektor       | Perusahaan         | danaAwal         | danaAkhir         |\n")
 	for i = 0; i < *nData; i++ {
 		if A[i].sektor == y || A[i].perusahaan == y || A[i].id == y || A[i].nama == y {
+			found = true
 			fmt.Printf("%s %s %s %s %.2f %.2f %.2f\n", A[i].id, A[i].nama, A[i].sektor, A[i].perusahaan, A[i].danaAwal, A[i].danaAkhir)
 			fmt.Println("---------------------")
 			fmt.Println("Data investasi berhasil ditemukan")
@@ -184,11 +187,12 @@ func hapusInvestasi(A *tabSaham, nData *int, y string) {
 			*nData--
 			fmt.Println("---------------------")
 			fmt.Println("Data investasi berhasil dihapus")
-		} else {
-			fmt.Println("Data investasi tidak ditemukan")
-			fmt.Println("Mohon masukan data yang benar")
-			fmt.Println("---------------------")
 		}
+	}
+	if !found {
+		fmt.Println("Data investasi tidak ditemukan")
+		fmt.Println("Mohon masukan data yang benar")
+		fmt.Println("---------------------")
 	}
 }
 func ubahInvestasi(A *tabSaham, nData *int, y string) {
@@ -266,15 +270,15 @@ func UrutKeuntungan(A *tabSaham, nData *int, y string) {
 func hitungUntung(A *tabSaham, nData *int) {
 	var i int
 	for i = 0; i < *nData; i++ {
-		A[i].keuntungan = (A[i].danaAkhir * 0.001) - A[i].danaAwal
+		A[i].keuntungan = ((A[i].danaAkhir) * 0.001) - A[i].danaAwal
 	}
 
 }
 
 func cetakData(A *tabSaham, nData *int) {
 	var i int
-	fmt.Printf("| ID | Nama                 | Sektor       | Perusahaan         | danaAwal         | danaAkhir         |\n")
+	fmt.Printf("| ID   | Nama   | Sektor    | Perusahaan   | danaAwal  | danaAkhir |\n")
 	for i = 0; i < *nData; i++ {
-		fmt.Printf("%s %s %s %s %.2f %.2f %.2f\n", A[i].id, A[i].nama, A[i].sektor, A[i].perusahaan, A[i].danaAwal, A[i].danaAkhir)
+		fmt.Printf("| %s | %s | %s | %s       | %.2f   | %.2f |\n", A[i].id, A[i].nama, A[i].sektor, A[i].perusahaan, A[i].danaAwal, A[i].danaAkhir)
 	}
 }
