@@ -206,12 +206,13 @@ func ubahInvestasi(A *tabSaham, nData *int, y string) {
 	fmt.Println("---------------------")
 	fmt.Println("	EDIT DATA INVESTASI")
 	fmt.Println("---------------------")
-	fmt.Printf("| ID | Nama                 | Sektor       | Perusahaan         | danaAwal         | danaAkhir         |\n")
+	fmt.Printf("| %-5s | %-15s | %-12s | %-18s | %-12s | %-12s |\n",
+		"ID", "Nama", "Sektor", "Perusahaan", "Dana Awal", "Dana Akhir")
 	found = false
 	for i = 0; i < *nData; i++ {
 		if A[i].sektor == y || A[i].perusahaan == y || A[i].id == y || A[i].nama == y {
 			found = true
-			fmt.Printf("%s %s %s %s %.2f %.2f %.2f\n", A[i].id, A[i].nama, A[i].sektor, A[i].perusahaan, A[i].danaAwal, A[i].danaAkhir)
+			fmt.Printf("| %-5s | %-15s | %-12s | %-18s | %-12s | %-12s |\n", A[i].id, A[i].nama, A[i].sektor, A[i].perusahaan, A[i].danaAwal, A[i].danaAkhir)
 			fmt.Println("---------------------")
 			fmt.Println("Data investasi berhasil ditemukan")
 			fmt.Println("Silahkan masukkan data yang ingin diubah:")
@@ -257,17 +258,19 @@ func CariDataSektor(A *tabSaham, nData *int, y string) {
 	}
 }
 
+// Masi perlud perbaikan
 func UrutKeuntungan(A *tabSaham, nData *int, y string) {
 	var i, pass int
 	var temp saham
 	pass = 1
+	hitungUntung(A, nData)
 	for pass = 0; pass <= *nData-1; pass++ {
 		i = pass
 		for i < *nData-1 && A[i].keuntungan < A[i+1].keuntungan {
 			temp = A[i]
 			A[i] = A[i+1]
 			A[i+1] = temp
-			i--
+			i++
 		}
 	}
 }
@@ -290,7 +293,7 @@ func cetakData(A *tabSaham, nData *int) {
 	var i int
 	fmt.Printf("| ID   | Nama   | Sektor    | Perusahaan   | danaAwal  | danaAkhir |\n")
 	for i = 0; i < *nData; i++ {
-		fmt.Printf("| %s | %s | %s | %s       | %.2f   | %.2f |\n", A[i].id, A[i].nama, A[i].sektor, A[i].perusahaan, A[i].danaAwal, A[i].danaAkhir)
+		fmt.Printf("| %-5s | %-15s | %-12s | %-18s | %12.2f | %12.2f |\n", A[i].id, A[i].nama, A[i].sektor, A[i].perusahaan, A[i].danaAwal, A[i].danaAkhir)
 	}
 }
 
@@ -302,7 +305,7 @@ func LaporanInvestasi(A *tabSaham, nData *int) {
 	fmt.Println("---------------------")
 	fmt.Println(" LAPORAN INVESTASI")
 	fmt.Println("---------------------")
-	fmt.Printf("| ID   | Nama   | Sektor    | Perusahaan   | danaAwal  | danaAkhir | Keuntungan Kotor |\n")
+	fmt.Printf("| %-5s | %-15s | %-12s | %-18s | %12s | %12s | %14s | %14s |\n", "ID", "Nama", "Sektor", "Perusahaan", "Dana Awal", "Dana Akhir", "Untung Kotor", "Untung Bersih")
 
 	hitungUntung(A, nData)
 
@@ -311,7 +314,7 @@ func LaporanInvestasi(A *tabSaham, nData *int) {
 		keuntunganBersih = A[i].keuntungan
 		totalKeuntunganKotor += keuntunganKotor
 		totalKeuntunganBersih += keuntunganBersih
-		fmt.Printf("| %s | %s | %s | %s | %.2f | %.2f | %.2f |\n",
+		fmt.Printf("| %-5s | %-15s | %-12s | %-18s | %12.2f | %12.2f | %14.2f | %14.2f |\n",
 			A[i].id, A[i].nama, A[i].sektor, A[i].perusahaan, A[i].danaAwal, A[i].danaAkhir, keuntunganKotor, keuntunganBersih)
 	}
 	fmt.Println("--------------------------------------------------------------------------")
