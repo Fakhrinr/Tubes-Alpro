@@ -269,8 +269,14 @@ func UrutKeuntungan(A *tabSaham, nData *int, y string) {
 
 func hitungUntung(A *tabSaham, nData *int) {
 	var i int
+	var keuntunganKotor, keuntunganBersih float64
+	keuntunganBersih = 0
+	keuntunganKotor = 0
+
 	for i = 0; i < *nData; i++ {
-		A[i].keuntungan = ((A[i].danaAkhir) * 0.001) - A[i].danaAwal
+		keuntunganKotor = A[i].danaAkhir - A[i].danaAwal
+		keuntunganBersih = keuntunganKotor * 0.001
+		A[i].keuntungan = keuntunganBersih
 	}
 
 }
@@ -285,20 +291,26 @@ func cetakData(A *tabSaham, nData *int) {
 
 func LaporanInvestasi(A *tabSaham, nData *int) {
 	var i int
-	var totalKeuntungan float64 = 0
-	var keuntunganKotor float64 = 0
+	var totalKeuntunganKotor, totalKeuntunganBersih float64
+	var keuntunganKotor, keuntunganBersih float64
 
 	fmt.Println("---------------------")
 	fmt.Println(" LAPORAN INVESTASI")
 	fmt.Println("---------------------")
 	fmt.Printf("| ID   | Nama   | Sektor    | Perusahaan   | danaAwal  | danaAkhir | Keuntungan Kotor |\n")
+
+	hitungUntung(A, nData)
+
 	for i = 0; i < *nData; i++ {
 		keuntunganKotor = A[i].danaAkhir - A[i].danaAwal
-		totalKeuntungan += keuntunganKotor
+		keuntunganBersih = A[i].keuntungan
+		totalKeuntunganKotor += keuntunganKotor
+		totalKeuntunganBersih += keuntunganBersih
 		fmt.Printf("| %s | %s | %s | %s | %.2f | %.2f | %.2f |\n",
-			A[i].id, A[i].nama, A[i].sektor, A[i].perusahaan, A[i].danaAwal, A[i].danaAkhir, keuntunganKotor)
+			A[i].id, A[i].nama, A[i].sektor, A[i].perusahaan, A[i].danaAwal, A[i].danaAkhir, keuntunganKotor, keuntunganBersih)
 	}
 	fmt.Println("--------------------------------------------------------------------------")
-	fmt.Printf("Total Keuntungan : %.2f\n", totalKeuntungan)
+	fmt.Printf("Total Keuntungan Kotor : %.2f\n", totalKeuntunganKotor)
+	fmt.Printf("Total Keuntungan Bersih : %.2f\n", totalKeuntunganBersih)
 	fmt.Println("--------------------------------------------------------------------------")
 }
