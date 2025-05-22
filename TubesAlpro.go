@@ -67,7 +67,8 @@ func MulaiInvestasi(A *tabSaham, nData *int) {
 		fmt.Println("1. Teknologi")
 		fmt.Println("2. Keuangan")
 		fmt.Println("3. Konsumsi")
-		fmt.Println("Pilih sektor investasi (1/2/3):")
+		fmt.Println("4. Kembali ke menu utama")
+		fmt.Println("Pilih sektor investasi (1/2/3/4):")
 		fmt.Println("---------------------")
 		fmt.Scan(&x)
 		switch x {
@@ -77,7 +78,8 @@ func MulaiInvestasi(A *tabSaham, nData *int) {
 			A[*nData].sektor = "Keuangan"
 		case 3:
 			A[*nData].sektor = "Konsumsi"
-
+		case 4:
+			fmt.Println("Kembali ke menu utama")
 		}
 
 		fmt.Println("Silahkan masukkan id investasi:")
@@ -116,7 +118,8 @@ func LihatInvestasi(A *tabSaham, nData *int) {
 	fmt.Println("1. Cari data berdasarkan Id/ Perusahaan")
 	fmt.Println("2. Mengurutkan data berdasarkan Keutungan")
 	fmt.Println("3. Mengurutkan data berdasarkan investasi terbesar")
-	fmt.Println("Silahkan pilih menu (1/2/3):")
+	fmt.Println("4. Kembali ke menu utama")
+	fmt.Println("Silahkan pilih menu (1/2/3/4):")
 	fmt.Scan(&x)
 	switch x {
 	case 1:
@@ -135,6 +138,8 @@ func LihatInvestasi(A *tabSaham, nData *int) {
 		fmt.Println("Silahkan masukkan sektor investasi yang ingin dicari :")
 		fmt.Scan(&y)
 
+	case 4:
+		fmt.Println("Kembali ke menu utama")
 	}
 }
 
