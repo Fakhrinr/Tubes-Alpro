@@ -321,7 +321,7 @@ func UrutKeuntunganKecil(A *tabSaham, nData *int, y int) {
 
 	pass = 1
 	hitungUntung(A, nData)
-	for pass < *nData-1 {
+	for pass < *nData {
 		i = pass
 		temp = A[pass]
 		for i > 0 && temp.keuntungan < A[i-1].keuntungan {
@@ -345,21 +345,19 @@ func urutInvestasiBesar(A *tabSaham, nData *int, y int) {
 	var temp saham
 
 	hitungUntung(A, nData)
-	pass = 1
-	for pass < *nData {
-		idx = pass - 1
+	for pass = 0; pass < *nData-1; pass++ {
+		idx = pass
 		i = pass
-		for i < *nData {
+		for i = pass + 1; i < *nData; i++ {
 			if A[i].danaAwal < A[idx].danaAwal {
-				A[i].danaAwal = A[idx].danaAwal
+				A[i] = A[idx]
 				idx = i
 			}
 			i++
 		}
-		temp = A[pass-1]
-		A[pass-1] = A[idx]
+		temp = A[pass]
+		A[pass] = A[idx]
 		A[idx] = temp
-		pass++
 	}
 	for i = 0; i < *nData; i++ {
 		fmt.Printf("| %-5s | %-15s | %-12s | %-18s | %12.2f | %12.2f | %14.2f |\n",
