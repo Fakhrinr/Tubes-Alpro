@@ -345,18 +345,17 @@ func urutInvestasiBesar(A *tabSaham, nData *int, y int) {
 	var temp saham
 
 	hitungUntung(A, nData)
-	for pass = 0; pass < *nData-1; pass++ {
+	for pass = 1; pass < *nData-1; pass++ {
 		idx = pass
-		i = pass
-		for i = pass + 1; i < *nData; i++ {
-			if A[i].danaAwal < A[idx].danaAwal {
-				A[i] = A[idx]
+		i = pass - 1
+		for i = pass; i < *nData; i++ {
+			if A[i].danaAwal > A[idx].danaAwal {
 				idx = i
 			}
 			i++
 		}
-		temp = A[pass]
-		A[pass] = A[idx]
+		temp = A[pass-1]
+		A[pass-1] = A[idx]
 		A[idx] = temp
 	}
 	for i = 0; i < *nData; i++ {
