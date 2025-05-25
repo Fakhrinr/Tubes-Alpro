@@ -502,7 +502,7 @@ func MenuCariDataStatis() {
 	fmt.Println(" CONTOH DATA STATIS PER SEKTOR")
 	fmt.Println("---------------------")
 	fmt.Println("Silakan ketik nama sektor (Teknologi/Keuangan/Konsumsi):")
-	fmt.Scanln(&sektor)
+	fmt.Scan(&sektor)
 
 	if sektor == "Keuangan" {
 		fmt.Println("ID       Nama      Perusahaan")
