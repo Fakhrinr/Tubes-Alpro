@@ -84,6 +84,8 @@ func MulaiInvestasi(A *tabSaham, nData *int) {
 			A[*nData].sektor = "Konsumsi"
 		case 4:
 			fmt.Println("Kembali ke menu utama")
+			return
+
 		}
 
 		fmt.Println("Silahkan masukkan Nama investor:")
