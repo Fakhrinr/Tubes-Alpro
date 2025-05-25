@@ -35,7 +35,7 @@ func main() {
 		case 3:
 			editInvestasi(&inves, &nData)
 		case 4:
-			LaporanInvestasi(&inves, &nData)
+			laporanPortofolio(&inves, &nData)
 		default:
 			fmt.Println("Terima kasih telah menggunakan aplikasi investasi")
 		}
@@ -117,7 +117,7 @@ func BuatID() int {
 func LihatInvestasi(A *tabSaham, nData *int) {
 	var x int
 	fmt.Println("---------------------")
-	fmt.Println("	DATA INVESTASI")
+	fmt.Println("DATA INVESTASI")
 	fmt.Println("---------------------")
 	cetakData(A, nData)
 	fmt.Println("---------------------")
@@ -126,7 +126,7 @@ func LihatInvestasi(A *tabSaham, nData *int) {
 	fmt.Println(" Silahkan pilih sektor investasi saham")
 	fmt.Println("1. Cari data berdasarkan Id/ Perusahaan")
 	fmt.Println("2. Mengurutkan data berdasarkan Keutungan")
-	fmt.Println("4. Kembali ke menu utama")
+	fmt.Println("3. Kembali ke menu utama")
 	fmt.Println("Silahkan pilih menu (1/2/3/4):")
 	fmt.Scan(&x)
 	switch x {
@@ -177,6 +177,7 @@ func LihatInvestasi(A *tabSaham, nData *int) {
 		}
 	case 3:
 		fmt.Println("Kembali ke menu utama")
+		return
 	}
 }
 
@@ -321,6 +322,83 @@ func CariDataMember(A *tabSaham, nData *int) {
 	}
 }
 
+func laporanPortofolio(A *tabSaham, nData *int) {
+	var x int
+	fmt.Println("---------------------")
+	fmt.Println(" LAPORAN PORTOFOLIO")
+	fmt.Println("---------------------")
+	fmt.Println("siahkan pilih menu yang ingin ditampilkan")
+	fmt.Println("1. Laporan Investasi sektor")
+	fmt.Println("2. Laporan Investasi keseluruhan")
+	fmt.Println("3. Kembali ke menu utama")
+	fmt.Println("Silahkan pilih menu (1/2/3/4):")
+	fmt.Scan(&x)
+
+	if x == 1 {
+		var sektor string
+		fmt.Println("Silahkan masukkan sektor investasi:")
+		fmt.Println("1. Teknologi")
+		fmt.Println("2. Keuangan")
+		fmt.Println("3. Konsumsi")
+		fmt.Println("4. Kembali ke menu utama")
+		fmt.Println("Masukan pilihan sektor")
+		fmt.Println("(1/2/3/4)")
+		fmt.Scan(&x)
+		if x == 1 {
+			sektor = "Teknologi"
+		} else if x == 2 {
+			sektor = "Keuangan"
+		} else if x == 3 {
+			sektor = "Konsumsi"
+		} else if x == 4 {
+			fmt.Println("Kembali ke menu utama")
+			return
+		}
+		laporanSektor(A, nData, sektor)
+	} else if x == 2 {
+		LaporanInvestasi(A, nData)
+	} else if x == 3 {
+		fmt.Println("Kembali ke menu utama")
+		return
+	} else {
+		fmt.Println("Input Tidak Valid")
+		return
+	}
+
+}
+
+func laporanSektor(A *tabSaham, nData *int, sektor string) {
+	var i int
+	var found bool
+	var totalKeuntunganKotor, totalKeuntunganBersih float64
+	var keuntunganKotor, keuntunganBersih float64
+
+	fmt.Println("---------------------")
+	fmt.Println(" LAPORAN INVESTASI SEKTOR")
+	fmt.Println("---------------------")
+	fmt.Printf("| %-5s | %-15s | %-10s | %-15s | %-12s | %-12s | %-17s |\n",
+		"ID", "Nama", "Sektor", "Perusahaan", "danaAwal", "danaAkhir", "Keuntungan Kotor")
+	fmt.Println("-----------------------------------------------------------------------------------------------")
+
+	for i = 0; i < *nData; i++ {
+		if A[i].sektor == sektor {
+			found = true
+			hitungUntung(A, nData)
+			keuntunganKotor = A[i].danaAkhir - A[i].danaAwal
+			keuntunganBersih = A[i].keuntungan
+			totalKeuntunganKotor += keuntunganKotor
+			totalKeuntunganBersih += keuntunganBersih
+			fmt.Printf("| %-5s | %-15s | %-10s | %-15s | %12.2f | %12.2f | %17.2f |\n",
+				A[i].id, A[i].nama, A[i].sektor, A[i].perusahaan, A[i].danaAwal, A[i].danaAkhir, keuntunganKotor)
+		}
+
+		if !found {
+			fmt.Println("Data tidak ditemukan")
+			fmt.Println("Mohon masukan data yang benar")
+			return
+		}
+	}
+}
 func UrutKeuntunganKecil(A *tabSaham, nData *int, y int) {
 	var i, pass int
 	var temp saham
