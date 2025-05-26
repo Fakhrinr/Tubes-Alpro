@@ -121,6 +121,10 @@ func LihatInvestasi(A *tabSaham, nData *int) {
 	fmt.Println("---------------------")
 	fmt.Println("DATA INVESTASI")
 	fmt.Println("---------------------")
+	if *nData == 0 {
+		fmt.Println("Tidak ada data investasi yang tersedia.")
+		return
+	}
 	cetakData(A, nData)
 	fmt.Println("---------------------")
 	fmt.Println("	 INVESTASI")
@@ -468,6 +472,10 @@ func hitungUntung(A *tabSaham, nData *int) {
 
 func cetakData(A *tabSaham, nData *int) {
 	var i int
+	if *nData == 0 {
+		fmt.Println("Tidak ada data investasi yang tersedia.")
+		return
+	}
 	fmt.Printf("| %-3s | %-10s | %-5s | %-15s | %-10s | %-15s | %-12s | %-12s |\n", "No", "IDMember", "ID", "Nama", "Sektor", "Perusahaan", "danaAwal", "danaAkhir")
 	fmt.Println("-----------------------------------------------------------------------------------------------")
 	for i = 0; i < *nData; i++ {
