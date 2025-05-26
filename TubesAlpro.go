@@ -85,7 +85,9 @@ func MulaiInvestasi(A *tabSaham, nData *int) {
 		case 4:
 			fmt.Println("Kembali ke menu utama")
 			return
-
+		default:
+			fmt.Println("Input Tidak Valid")
+			return
 		}
 
 		fmt.Println("Silahkan masukkan Nama investor:")
@@ -144,10 +146,13 @@ func LihatInvestasi(A *tabSaham, nData *int) {
 		fmt.Scan(&y)
 		if y == 1 {
 			sektor = "Teknologi"
+			CariDataSektor(A, nData, sektor)
 		} else if y == 2 {
 			sektor = "Keuangan"
+			CariDataSektor(A, nData, sektor)
 		} else if y == 3 {
 			sektor = "Konsumsi"
+			CariDataSektor(A, nData, sektor)
 		} else if y == 4 {
 			CariDataMember(A, nData)
 		} else if y == 5 {
@@ -157,7 +162,6 @@ func LihatInvestasi(A *tabSaham, nData *int) {
 			fmt.Println("Input Tidak Valid")
 			return
 		}
-		CariDataSektor(A, nData, sektor)
 	case 2:
 		var y int
 		fmt.Println("Silahkan pilih")
@@ -467,7 +471,7 @@ func cetakData(A *tabSaham, nData *int) {
 	fmt.Printf("| %-3s | %-10s | %-5s | %-15s | %-10s | %-15s | %-12s | %-12s |\n", "No", "IDMember", "ID", "Nama", "Sektor", "Perusahaan", "danaAwal", "danaAkhir")
 	fmt.Println("-----------------------------------------------------------------------------------------------")
 	for i = 0; i < *nData; i++ {
-		fmt.Printf("| %-3d | %-10d | %-5s | %-15s | %-10s | %-15s | %-12f | %-12f |\n", i+1, A[i].IDMember, A[i].id, A[i].nama, A[i].sektor, A[i].perusahaan, A[i].danaAwal, A[i].danaAkhir)
+		fmt.Printf("| %-3d | %-10d | %-5s | %-15s | %-10s | %-15s | %-12.2f | %-12.2f |\n", i+1, A[i].IDMember, A[i].id, A[i].nama, A[i].sektor, A[i].perusahaan, A[i].danaAwal, A[i].danaAkhir)
 	}
 	fmt.Println("-----------------------------------------------------------------------------------------------")
 }
@@ -490,7 +494,7 @@ func LaporanInvestasi(A *tabSaham, nData *int) {
 		keuntunganBersih = A[i].keuntungan
 		totalKeuntunganKotor += keuntunganKotor
 		totalKeuntunganBersih += keuntunganBersih
-		fmt.Printf("| %-3s | %-10s | %-5s | %-15s | %-10s | %-15s | %-12f | %-12f | %-17.2f | %-17.2f |\n", i+1, A[i].IDMember, A[i].id, A[i].nama, A[i].sektor, A[i].perusahaan, A[i].danaAwal, A[i].danaAkhir, keuntunganKotor, keuntunganBersih)
+		fmt.Printf("| %-3d | %-10d | %-5s | %-15s | %-10s | %-15s | %-12f | %-12f | %-17.2f | %-17.2f |\n", i+1, A[i].IDMember, A[i].id, A[i].nama, A[i].sektor, A[i].perusahaan, A[i].danaAwal, A[i].danaAkhir, keuntunganKotor, keuntunganBersih)
 	}
 	fmt.Println("--------------------------------------------------------------------------")
 	fmt.Printf("Total Keuntungan Kotor : %.2f\n", totalKeuntunganKotor)
