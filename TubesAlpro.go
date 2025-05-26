@@ -103,7 +103,7 @@ func MulaiInvestasi(A *tabSaham, nData *int) {
 		A[*nData].IDMember = BuatID()
 		*nData++
 
-		fmt.Println("Apakah anda ingin menambah data investasi lagi? (yes/no):")
+		fmt.Print("Apakah anda ingin menambah data investasi lagi? (yes/no) : ")
 		fmt.Scan(&y)
 	}
 	fmt.Println("-----------------")
@@ -230,20 +230,18 @@ func hapusInvestasi(A *tabSaham, nData *int, y int) {
 	var found bool
 	fmt.Println("---------------------")
 	fmt.Println("	HAPUS DATA INVESTASI")
-	fmt.Printf("| %-10s | %-15s | %-10s | %-15s | %-12s | %-12s |\n", "ID", "Nama", "Sektor", "Perusahaan", "danaAwal", "danaAkhir")
+	fmt.Printf("| %-3s | %-10s | %-10s | %-15s | %-10s | %-15s | %-12s | %-12s |\n", "No", "IDMember", "ID Perusahaan", "Nama", "Sektor", "Perusahaan", "danaAwal", "danaAkhir")
 	fmt.Println("-----------------------------------------------------------------------------------------------")
 	for i = 0; i < *nData; i++ {
 		if A[i].IDMember == y {
 			found = true
-			fmt.Printf("| %-10s | %-15s | %-10s | %-15s | %12.2f | %12.2f |\n",
-				A[i].id, A[i].nama, A[i].sektor, A[i].perusahaan, A[i].danaAwal, A[i].danaAkhir)
+			fmt.Printf("| %-3d | %-10d | %-10s | %-15s | %-10s | %-15s | %-12.2f | %-12.2f |\n", i+1, A[i].IDMember, A[i].id, A[i].nama, A[i].sektor, A[i].perusahaan, A[i].danaAwal, A[i].danaAkhir)
 			fmt.Println("-----------------------------------------------------------------------------------------------")
 			fmt.Println("Data investasi berhasil ditemukan")
 			for j = i; j < *nData-1; j++ {
 				A[j] = A[j+1]
 			}
 			*nData--
-			fmt.Println("---------------------")
 			fmt.Println("Data investasi berhasil dihapus")
 		}
 	}
@@ -259,7 +257,7 @@ func ubahInvestasi(A *tabSaham, nData *int, y int) {
 	fmt.Println("---------------------")
 	fmt.Println("EDIT DATA INVESTASI")
 	fmt.Println("---------------------")
-	fmt.Printf("| %-10s | %-15s | %-10s | %-15s | %-12s | %-12s |\n", "ID Perusahaan", "Nama", "Sektor", "Perusahaan", "danaAwal", "danaAkhir")
+	fmt.Printf("| %-3s | %-10s | %-10s | %-15s | %-10s | %-15s | %-12s | %-12s |\n", "No", "IDMember", "ID Perusahaan", "Nama", "Sektor", "Perusahaan", "danaAwal", "danaAkhir")
 	fmt.Println("-----------------------------------------------------------------------------------------------")
 	found = false
 
@@ -269,8 +267,8 @@ func ubahInvestasi(A *tabSaham, nData *int, y int) {
 		mid = (left + right) / 2
 		if A[mid].IDMember == y {
 			found = true
-			fmt.Printf("| %-10s | %-15s | %-10s | %-15s | %12.2f | %12.2f |\n",
-				A[i].id, A[i].nama, A[i].sektor, A[i].perusahaan, A[i].danaAwal, A[i].danaAkhir)
+			fmt.Printf("| %-3d | %-10d | %-10s | %-15s | %-10s | %-15s | %-12.2f | %-12.2f |\n",
+				i+1, A[i].IDMember, A[i].id, A[i].nama, A[i].sektor, A[i].perusahaan, A[i].danaAwal, A[i].danaAkhir)
 			fmt.Println("-----------------------------------------------------------------------------------------------")
 			fmt.Println("Data investasi berhasil ditemukan")
 			fmt.Println("Silahkan masukkan data yang ingin diubah:")
@@ -322,22 +320,31 @@ func CariDataSektor(A *tabSaham, nData *int, y string) {
 	}
 }
 func CariDataMember(A *tabSaham, nData *int) {
-	var i int
+	var i, mid, left, right int
 	var found bool
 	var y int
+
+	left = 0
+	right = *nData - 1
+
 	fmt.Println("---------------------")
-	fmt.Println("	CARI DATA MEMBER")
+	fmt.Println("CARI DATA MEMBER")
 	fmt.Println("---------------------")
 	found = false
-	fmt.Println("Silahkan masukkan ID Member yang ingin dicari:")
+	fmt.Print("Silahkan masukkan ID Member yang ingin dicari : ")
 	fmt.Scan(&y)
-	for i = 0; i < *nData; i++ {
-		if A[i].IDMember == y {
+	for left <= right && !found {
+		mid = (left + right) / 2
+		if A[mid].IDMember == y {
 			found = true
 			fmt.Printf("| ID Perusahaan | Nama                 | Sektor       | Perusahaan         | danaAwal         | danaAkhir         |\n")
 			fmt.Println("-----------------------------------------------------------------------------------------------")
 			fmt.Printf("| %-5s | %-15s | %-10s | %-15s | %12.2f | %12.2f |\n", A[i].id, A[i].nama, A[i].sektor, A[i].perusahaan, A[i].danaAwal, A[i].danaAkhir)
 			fmt.Println("-----------------------------------------------------------------------------------------------")
+		} else if A[mid].IDMember < y {
+			left = mid + 1
+		} else {
+			right = mid - 1
 		}
 	}
 	if !found {
