@@ -164,7 +164,7 @@ func LihatInvestasi(A *tabSaham, nData *int) {
 		fmt.Println("1. Mengurutkan berdasarkan nominal / keuntungan dari terkecil")
 		fmt.Println("2. Mengurutkan berdasarkan nominal / keuntungan dari terbesar")
 		fmt.Println("3. Kembali ke menu utama")
-		fmt.Println("Silahkan pilih:")
+		fmt.Println("Silahkan masukan pilihan:")
 		fmt.Println("(1/2/3)")
 		fmt.Scan(&y)
 		if y == 1 {
@@ -292,10 +292,10 @@ func CariDataSektor(A *tabSaham, nData *int, y string) {
 			found = true
 			fmt.Printf("| %-5s | %-15s | %-10s | %-15s | %12.2f | %12.2f |\n",
 				A[i].id, A[i].nama, A[i].sektor, A[i].perusahaan, A[i].danaAwal, A[i].danaAkhir)
-			fmt.Println("-----------------------------------------------------------------------------------------------")
-			fmt.Println("Data investasi berhasil ditemukan")
 		}
 	}
+	fmt.Println("-----------------------------------------------------------------------------------------------")
+	fmt.Println("Data investasi berhasil ditemukan")
 	if !found {
 		fmt.Println("Data tidak ditemukan")
 	}
@@ -307,14 +307,16 @@ func CariDataMember(A *tabSaham, nData *int) {
 	fmt.Println("---------------------")
 	fmt.Println("	CARI DATA MEMBER")
 	fmt.Println("---------------------")
-	fmt.Printf("| ID | Nama                 | Sektor       | Perusahaan         | danaAwal         | danaAkhir         |\n")
 	found = false
 	fmt.Println("Silahkan masukkan ID Member yang ingin dicari:")
 	fmt.Scan(&y)
 	for i = 0; i < *nData; i++ {
 		if A[i].IDMember == y {
 			found = true
+			fmt.Printf("| ID | Nama                 | Sektor       | Perusahaan         | danaAwal         | danaAkhir         |\n")
+			fmt.Println("-----------------------------------------------------------------------------------------------")
 			fmt.Printf("%s %s %s %s %.2f %.2f\n", A[i].id, A[i].nama, A[i].sektor, A[i].perusahaan, A[i].danaAwal, A[i].danaAkhir)
+			fmt.Println("-----------------------------------------------------------------------------------------------")
 		}
 	}
 	if !found {
@@ -465,7 +467,7 @@ func cetakData(A *tabSaham, nData *int) {
 	fmt.Printf("| %-3s | %-10s | %-5s | %-15s | %-10s | %-15s | %-12s | %-12s |\n", "No", "IDMember", "ID", "Nama", "Sektor", "Perusahaan", "danaAwal", "danaAkhir")
 	fmt.Println("-----------------------------------------------------------------------------------------------")
 	for i = 0; i < *nData; i++ {
-		fmt.Printf("| %-3s | %-10s | %-5s | %-15s | %-10s | %-15s | %-12s | %-12s |\n", i+1, A[i].IDMember, A[i].id, A[i].nama, A[i].sektor, A[i].perusahaan, A[i].danaAwal, A[i].danaAkhir)
+		fmt.Printf("| %-3d | %-10d | %-5s | %-15s | %-10s | %-15s | %-12f | %-12f |\n", i+1, A[i].IDMember, A[i].id, A[i].nama, A[i].sektor, A[i].perusahaan, A[i].danaAwal, A[i].danaAkhir)
 	}
 	fmt.Println("-----------------------------------------------------------------------------------------------")
 }
@@ -495,76 +497,3 @@ func LaporanInvestasi(A *tabSaham, nData *int) {
 	fmt.Printf("Total Keuntungan Bersih : %.2f\n", totalKeuntunganBersih)
 	fmt.Println("--------------------------------------------------------------------------")
 }
-
-func MenuCariDataStatis() {
-	var sektor string
-	fmt.Println("---------------------")
-	fmt.Println(" CONTOH DATA STATIS PER SEKTOR")
-	fmt.Println("---------------------")
-	fmt.Println("Silakan ketik nama sektor (Teknologi/Keuangan/Konsumsi):")
-	fmt.Scan(&sektor)
-
-	if sektor == "Keuangan" {
-		fmt.Println("ID       Nama      Perusahaan")
-		fmt.Println("--------------------------------------")
-		fmt.Println("SahamB   Keuangan  PT_Beta")
-		fmt.Println("SahamE   Keuangan  PT_Epsilon")
-		fmt.Println("SahamH   Keuangan  PT_Theta")
-		fmt.Println("SahamL   Keuangan  PT_Omega")
-		fmt.Println("SahamO   Keuangan  PT_Gamma2")
-		fmt.Println("SahamR   Keuangan  PT_Zeta2")
-		fmt.Println("SahamU   Keuangan  PT_Iota2")
-		fmt.Println("SahamX   Keuangan  PT_Mu2")
-		fmt.Println("SahamAA  Keuangan  PT_Omicron2")
-		fmt.Println("SahamAD  Keuangan  PT_Sigma2")
-		fmt.Println("SahamAG  Keuangan  PT_Phi2")
-		fmt.Println("SahamAJ  Keuangan  PT_Omega2")
-		fmt.Println("SahamAM  Keuangan  PT_Gamma3")
-		fmt.Println("SahamAP  Keuangan  PT_Zeta3")
-		fmt.Println("SahamAS  Keuangan  PT_Iota3")
-		fmt.Println("SahamAV  Keuangan  PT_Mu3")
-	} else if sektor == "Teknologi" {
-		fmt.Println("ID       Nama       Perusahaan")
-		fmt.Println("--------------------------------------")
-		fmt.Println("SahamA   Teknologi  PT_Alpha")
-		fmt.Println("SahamD   Teknologi  PT_Delta")
-		fmt.Println("SahamG   Teknologi  PT_Eta")
-		fmt.Println("SahamJ   Teknologi  PT_Kappa")
-		fmt.Println("SahamK   Teknologi  PT_Sigma")
-		fmt.Println("SahamN   Teknologi  PT_Beta2")
-		fmt.Println("SahamQ   Teknologi  PT_Epsilon2")
-		fmt.Println("SahamT   Teknologi  PT_Theta2")
-		fmt.Println("SahamW   Teknologi  PT_Lambda2")
-		fmt.Println("SahamZ   Teknologi  PT_Xi2")
-		fmt.Println("SahamAC  Teknologi  PT_Rho2")
-		fmt.Println("SahamAF  Teknologi  PT_Upsilon2")
-		fmt.Println("SahamAI  Teknologi  PT_Psi2")
-		fmt.Println("SahamAL  Teknologi  PT_Beta3")
-		fmt.Println("SahamAO  Teknologi  PT_Epsilon3")
-		fmt.Println("SahamAR  Teknologi  PT_Theta3")
-		fmt.Println("SahamAU  Teknologi  PT_Lambda3")
-		fmt.Println("SahamAX  Teknologi  PT_Xi3")
-	} else if sektor == "Konsumsi" {
-		fmt.Println("ID       Nama      Perusahaan")
-		fmt.Println("--------------------------------------")
-		fmt.Println("SahamC   Konsumsi  PT_Gamma")
-		fmt.Println("SahamF   Konsumsi  PT_Zeta")
-		fmt.Println("SahamI   Konsumsi  PT_Iota")
-		fmt.Println("SahamM   Konsumsi  PT_Alpha2")
-		fmt.Println("SahamP   Konsumsi  PT_Delta2")
-		fmt.Println("SahamS   Konsumsi  PT_Eta2")
-		fmt.Println("SahamV   Konsumsi  PT_Kappa2")
-		fmt.Println("SahamY   Konsumsi  PT_Nu2")
-		fmt.Println("SahamAB  Konsumsi  PT_Pi2")
-		fmt.Println("SahamAE  Konsumsi  PT_Tau2")
-		fmt.Println("SahamAH  Konsumsi  PT_Chi2")
-		fmt.Println("SahamAK  Konsumsi  PT_Alpha3")
-		fmt.Println("SahamAN  Konsumsi  PT_Delta3")
-		fmt.Println("SahamAQ  Konsumsi  PT_Eta3")
-		fmt.Println("SahamAT  Konsumsi  PT_Kappa3")
-		fmt.Println("SahamAW  Konsumsi  PT_Nu3")
-	} else {
-		fmt.Println("Sektor tidak ditemukan. Masukkan sesuai format.")
-	}
-}
-
