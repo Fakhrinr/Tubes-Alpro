@@ -13,7 +13,7 @@ type saham struct {
 	keuntungan float64 //keuntungan investasi
 }
 
-const maxSaham int = 50
+const maxSaham int = 3
 
 type tabSaham [maxSaham]saham
 
@@ -61,54 +61,58 @@ func Menu() {
 func MulaiInvestasi(A *tabSaham, nData *int) {
 	var x int
 	var y string
-	y = "yes"
 	for y != "no" {
-		fmt.Println("---------------------")
-		fmt.Println("MULAI INVESTASI")
-		fmt.Println("---------------------")
-		fmt.Println("Silahkan pilih sektor investasi saham")
-		fmt.Println("1. Teknologi")
-		fmt.Println("2. Keuangan")
-		fmt.Println("3. Konsumsi")
-		fmt.Println("4. Kembali ke menu utama")
-		fmt.Println("---------------------")
-		fmt.Print("Pilih sektor investasi (1/2/3/4):")
-		fmt.Scan(&x)
+		if *nData >= maxSaham {
+			fmt.Println("Data investasi sudah penuh, tidak bisa menambah data lagi.")
+			y = "no"
+		} else {
+			fmt.Println("---------------------")
+			fmt.Println("MULAI INVESTASI")
+			fmt.Println("---------------------")
+			fmt.Println("Silahkan pilih sektor investasi saham")
+			fmt.Println("1. Teknologi")
+			fmt.Println("2. Keuangan")
+			fmt.Println("3. Konsumsi")
+			fmt.Println("4. Kembali ke menu utama")
+			fmt.Println("---------------------")
+			fmt.Print("Pilih sektor investasi (1/2/3/4):")
+			fmt.Scan(&x)
 
-		switch x {
-		case 1:
-			A[*nData].sektor = "Teknologi"
-		case 2:
-			A[*nData].sektor = "Keuangan"
-		case 3:
-			A[*nData].sektor = "Konsumsi"
-		case 4:
-			fmt.Println("Kembali ke menu utama")
-			return
-		default:
-			fmt.Println("Input Tidak Valid")
-			return
+			switch x {
+			case 1:
+				A[*nData].sektor = "Teknologi"
+			case 2:
+				A[*nData].sektor = "Keuangan"
+			case 3:
+				A[*nData].sektor = "Konsumsi"
+			case 4:
+				fmt.Println("Kembali ke menu utama")
+				return
+			default:
+				fmt.Println("Input Tidak Valid")
+				return
+			}
+
+			fmt.Print("Silahkan masukkan Nama investor : ")
+			fmt.Scan(&A[*nData].nama)
+			fmt.Print("Silahkan masukkan ID perusahaan investasi : ")
+			fmt.Scan(&A[*nData].id)
+			fmt.Print("Silahkan masukkan nama perusahaan : ")
+			fmt.Scan(&A[*nData].perusahaan)
+			fmt.Print("Silahkan masukkan dana awal investasi : ")
+			fmt.Scan(&A[*nData].danaAwal)
+			fmt.Print("Silahkan masukkan dana akhir investasi : ")
+			fmt.Scan(&A[*nData].danaAkhir)
+			A[*nData].IDMember = BuatID()
+			*nData++
+
+			fmt.Print("Apakah anda ingin menambah data investasi lagi? (yes/no) : ")
+			fmt.Scan(&y)
 		}
-
-		fmt.Print("Silahkan masukkan Nama investor : ")
-		fmt.Scan(&A[*nData].nama)
-		fmt.Print("Silahkan masukkan ID perusahaan investasi : ")
-		fmt.Scan(&A[*nData].id)
-		fmt.Print("Silahkan masukkan nama perusahaan : ")
-		fmt.Scan(&A[*nData].perusahaan)
-		fmt.Print("Silahkan masukkan dana awal investasi : ")
-		fmt.Scan(&A[*nData].danaAwal)
-		fmt.Print("Silahkan masukkan dana akhir investasi : ")
-		fmt.Scan(&A[*nData].danaAkhir)
-		A[*nData].IDMember = BuatID()
-		*nData++
-
-		fmt.Print("Apakah anda ingin menambah data investasi lagi? (yes/no) : ")
-		fmt.Scan(&y)
+		fmt.Println("-----------------")
+		fmt.Println("Data investasi berhasil disimpan")
+		fmt.Println("-----------------")
 	}
-	fmt.Println("-----------------")
-	fmt.Println("Data investasi berhasil disimpan")
-	fmt.Println("-----------------")
 }
 
 func BuatID() int {
@@ -267,8 +271,9 @@ func ubahInvestasi(A *tabSaham, nData *int, y int) {
 		mid = (left + right) / 2
 		if A[mid].IDMember == y {
 			found = true
+			i = mid
 			fmt.Printf("| %-3d | %-10d | %-10s | %-15s | %-10s | %-15s | %-12.2f | %-12.2f |\n",
-				i+1, A[i].IDMember, A[i].id, A[i].nama, A[i].sektor, A[i].perusahaan, A[i].danaAwal, A[i].danaAkhir)
+				i+1, A[mid].IDMember, A[mid].id, A[mid].nama, A[mid].sektor, A[mid].perusahaan, A[mid].danaAwal, A[mid].danaAkhir)
 			fmt.Println("-----------------------------------------------------------------------------------------------")
 			fmt.Println("Data investasi berhasil ditemukan")
 			fmt.Println("Silahkan masukkan data yang ingin diubah:")
@@ -285,7 +290,7 @@ func ubahInvestasi(A *tabSaham, nData *int, y int) {
 			fmt.Println("---------------------")
 			fmt.Println("Data investasi berhasil diubah")
 			fmt.Println("---------------------")
-		} else if A[i].IDMember < y {
+		} else if A[mid].IDMember < y {
 			left = mid + 1
 		} else {
 			right = mid - 1
@@ -320,7 +325,7 @@ func CariDataSektor(A *tabSaham, nData *int, y string) {
 	}
 }
 func CariDataMember(A *tabSaham, nData *int) {
-	var i, mid, left, right int
+	var mid, left, right int
 	var found bool
 	var y int
 
@@ -339,7 +344,7 @@ func CariDataMember(A *tabSaham, nData *int) {
 			found = true
 			fmt.Printf("| ID Perusahaan | Nama                 | Sektor       | Perusahaan         | danaAwal         | danaAkhir         |\n")
 			fmt.Println("-----------------------------------------------------------------------------------------------")
-			fmt.Printf("| %-5s | %-15s | %-10s | %-15s | %12.2f | %12.2f |\n", A[i].id, A[i].nama, A[i].sektor, A[i].perusahaan, A[i].danaAwal, A[i].danaAkhir)
+			fmt.Printf("| %-5s | %-15s | %-10s | %-15s | %12.2f | %12.2f |\n", A[mid].id, A[mid].nama, A[mid].sektor, A[mid].perusahaan, A[mid].danaAwal, A[mid].danaAkhir)
 			fmt.Println("-----------------------------------------------------------------------------------------------")
 		} else if A[mid].IDMember < y {
 			left = mid + 1
@@ -476,7 +481,7 @@ func urutInvestasiBesar(A *tabSaham, nData *int, y int) {
 		A[idx] = temp
 	}
 	for i = 0; i < *nData; i++ {
-		fmt.Printf("| %-3s | %-10s | %-10s | %-15s | %-10s | %-15s | %-12s | %-12s | %12s |\n", i+1, A[i].IDMember, A[i].id, A[i].nama, A[i].sektor, A[i].perusahaan, A[i].danaAwal, A[i].danaAkhir, A[i].keuntungan)
+		fmt.Printf("| %-3d | %-10d | %-10s | %-15s | %-10s | %-15s | %-12f | %-12f | %12f |\n", i+1, A[i].IDMember, A[i].id, A[i].nama, A[i].sektor, A[i].perusahaan, A[i].danaAwal, A[i].danaAkhir, A[i].keuntungan)
 	}
 }
 
